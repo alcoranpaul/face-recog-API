@@ -1,6 +1,7 @@
 const express = require('express')
 const bcrypt = require('bcrypt-nodejs')
 const cors = require('cors')
+const knex = require('knex')
 
 const app = express();
 app.use(cors());
@@ -45,7 +46,7 @@ app.post('/signin', (req, res) => {
     // });
     if (req.body.email === database.users[0].email && req.body.password === database.users[0].password) {
         console.log(`Email: ${req.body.email} \nPassword: ${req.body.password}`)
-        return res.json('success')
+        return res.json(database.users[0])
     }
     else {
         return res.status(400).json('Error logging in')
